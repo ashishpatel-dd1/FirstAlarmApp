@@ -1,15 +1,35 @@
 <resources>
-    <string name="app_name">SimpleAlarmApp</string>
-    <string name="recurring_alarm_label">Set as recurring alarm (daily)</string>
-    <string name="set_alarm_button_text">Set Alarm</string>
-    <string name="cancel_alarm_button_text">Cancel Alarm</string>
-    <string name="snooze_label">Snooze Duration (minutes):</string>
+    <string name="app_name">Simple Alarm App</string>
+
+    <string name="time_picker_label">Select Time</string>
+    <string name="time_picker_description">Select the time for the alarm</string>
+
+    <string name="date_picker_label">Select Date</string>
+    <string name="date_picker_description">Select the date for the alarm</string>
+
+    <string name="recurring_alarm_label">Set Recurring Alarm</string>
+    <string name="recurring_checkbox_description">Enable recurring daily alarm</string>
+
+    <string name="snooze_label">Snooze Duration (Minutes)</string>
+    <string name="snooze_seekbar_description">Adjust the snooze duration for the alarm</string>
+    <string name="snooze_toggle_label">Enable/Disable Snooze</string>
+    <string name="snooze_disabled">Snooze Disabled</string>
+    <string name="snooze_enabled">Snooze Enabled</string>
+    <string name="snooze_toggle_description">Toggle to enable or disable the snooze functionality</string>
+
 
     <string name="enable_disable_alarm">Enable/Disable Alarm</string>
+    <string name="alarm_switch_description">Toggle to enable or disable the alarm</string>
     <string name="enable_alarm">Enable Alarm</string>
     <string name="disable_alarm">Disable Alarm</string>
 
-    <string name="no_alarms_set">No alarms set.</string>
     <string name="alarm_canceled">Alarm Cancelled</string>
+
+    <string name="set_alarm_button_text">Set Alarm</string>
+    <string name="set_alarm_button_description">Press to set the alarm</string>
+    <string name="cancel_alarm_button_text">Cancel Alarm</string>
+    <string name="cancel_alarm_button_description">Press to cancel the alarm</string>
+
+    <string name="no_alarms_set">No alarms set</string>
 
 </resources>

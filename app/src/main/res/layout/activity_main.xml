@@ -10,6 +10,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- App Header -->
         <TextView
             android:id="@+id/headerText"
             android:layout_width="match_parent"
@@ -20,40 +21,79 @@
             android:gravity="center"
             android:layout_marginBottom="24dp" />
 
+        <!-- TimePicker Label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_picker_label"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- TimePicker -->
         <TimePicker
             android:id="@+id/timePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/time_picker_description" />
 
+        <!-- DatePicker Label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_picker_label"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- DatePicker -->
         <DatePicker
             android:id="@+id/datePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/date_picker_description" />
 
+        <!-- Recurring Checkbox -->
         <CheckBox
             android:id="@+id/recurringCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@string/recurring_alarm_label" />
+            android:text="@string/recurring_alarm_label"
+            android:contentDescription="@string/recurring_checkbox_description" />
 
+        <!-- Snooze Label -->
         <TextView
             android:id="@+id/snoozeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/snooze_label"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp" />
 
+        <!-- Snooze SeekBar -->
         <SeekBar
             android:id="@+id/snoozeSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="30"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/snooze_seekbar_description" />
 
+        <!-- Snooze Toggle Switch -->
+        <Switch
+            android:id="@+id/snoozeSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snooze_toggle_label"
+            android:textOff="@string/snooze_disabled"
+            android:textOn="@string/snooze_enabled"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/snooze_toggle_description" />
+
+
+        <!-- Enable/Disable Alarm Switch -->
         <Switch
             android:id="@+id/alarmSwitch"
             android:layout_width="match_parent"
@@ -61,22 +101,26 @@
             android:textOff="@string/disable_alarm"
             android:textOn="@string/enable_alarm"
             android:text="@string/enable_disable_alarm"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/alarm_switch_description" />
 
-        <!-- Buttons -->
+        <!-- Set Alarm Button -->
         <Button
             android:id="@+id/setAlarmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/set_alarm_button_text"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/set_alarm_button_description" />
 
+        <!-- Cancel Alarm Button -->
         <Button
             android:id="@+id/cancelAlarmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cancel_alarm_button_text"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/cancel_alarm_button_description" />
 
         <!-- Feedback TextView -->
         <TextView
@@ -88,6 +132,5 @@
             android:gravity="center"
             android:layout_marginTop="16dp"
             android:textColor="@android:color/holo_red_dark" />
-
     </LinearLayout>
 </ScrollView>

@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,18 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
-import com.example.simplealarmapp.AlarmReceiver;
-
-
 public class MainActivity extends AppCompatActivity {
 
     private TimePicker timePicker;
-    private DatePicker datePicker;
     private CheckBox recurringCheckBox;
     private SeekBar snoozeSeekBar;
     private Switch alarmSwitch;
     private TextView feedbackText;
-
+    private Switch snoozeSwitch;
+    private boolean isSnoozeEnabled = true; // Snooze is enabled by default
     private int snoozeDuration = 5; // Default snooze duration (in minutes)
     private boolean isAlarmEnabled = false;
 
@@ -42,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize UI elements
         timePicker = findViewById(R.id.timePicker);
-        datePicker = findViewById(R.id.datePicker);
         recurringCheckBox = findViewById(R.id.recurringCheckBox);
+        snoozeSwitch = findViewById(R.id.snoozeSwitch);
         snoozeSeekBar = findViewById(R.id.snoozeSeekBar);
         alarmSwitch = findViewById(R.id.alarmSwitch);
         feedbackText = findViewById(R.id.feedbackText);
@@ -71,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
+        // Snooze Switch Listener
+        snoozeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            isSnoozeEnabled = isChecked;
+            String status = isSnoozeEnabled ? "enabled" : "disabled";
+            Toast.makeText(MainActivity.this, "Snooze is " + status, Toast.LENGTH_SHORT).show();
+        });
+
         // Alarm Switch Listener
         alarmSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             isAlarmEnabled = isChecked;
@@ -89,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
             calendar.set(Calendar.MINUTE, timePicker.getMinute());
             calendar.set(Calendar.SECOND, 0);
-
-            // Set the date from DatePicker
-            calendar.set(Calendar.YEAR, datePicker.getYear());
-            calendar.set(Calendar.MONTH, datePicker.getMonth());
-            calendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
 
             boolean isRecurring = recurringCheckBox.isChecked();
             setAlarm(calendar, isRecurring);
@@ -114,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     private void setAlarm(Calendar calendar, boolean isRecurring) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("snoozeEnabled", isSnoozeEnabled); // Pass snooze state
         intent.putExtra("snoozeDuration", snoozeDuration); // Pass snooze duration to the receiver
 
         int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
@@ -140,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Alarm set successfully.", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void cancelAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
