@@ -4,11 +4,12 @@
     <string name="set_alarm_button_text">Set Alarm</string>
     <string name="cancel_alarm_button_text">Cancel Alarm</string>
     <string name="snooze_label">Snooze Duration (minutes):</string>
-    <string name="no_alarms_set">No alarms set.</string>
 
     <string name="enable_disable_alarm">Enable/Disable Alarm</string>
     <string name="enable_alarm">Enable Alarm</string>
     <string name="disable_alarm">Disable Alarm</string>
 
+    <string name="no_alarms_set">No alarms set.</string>
+    <string name="alarm_canceled">Alarm Cancelled</string>
 
 </resources>

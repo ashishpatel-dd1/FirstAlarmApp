@@ -15,7 +15,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set initial values
         snoozeSeekBar.setProgress(snoozeDuration);
-        feedbackText.setText("No alarms set.");
+        feedbackText.setText(getString(R.string.no_alarms_set));
         alarmSwitch.setChecked(isAlarmEnabled);
 
         // Snooze SeekBar Listener
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         // Cancel Alarm Button Listener
         cancelAlarmButton.setOnClickListener(v -> {
             cancelAlarm();
-            feedbackText.setText("Alarm canceled.");
+            feedbackText.setText(R.string.alarm_canceled);
         });
     }
 
