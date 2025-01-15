@@ -1,5 +1,6 @@
 package com.example.simplealarmapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -46,17 +47,26 @@ public class MainActivity extends AppCompatActivity {
         cancelAlarmButton.setOnClickListener(v -> cancelAlarm());
     }
 
+    @SuppressLint("ScheduleExactAlarm")
     private void setAlarm(Calendar calendar, boolean isRecurring) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager == null) {
+            Toast.makeText(this, "Failed to set/cancel alarm.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(this, AlarmReceiver.class);
 
         // Use FLAG_IMMUTABLE for a PendingIntent that doesn't need to be changed later
+        int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                ? PendingIntent.FLAG_IMMUTABLE
+                : 0;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this,
                 0,
                 intent,
-                PendingIntent.FLAG_IMMUTABLE
+                flags
         );
+
 
         if (alarmManager != null) {
             if (isRecurring) {
@@ -68,19 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 );
                 Toast.makeText(this, "Recurring alarm set for: " + calendar.getTime(), Toast.LENGTH_SHORT).show();
             } else {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            pendingIntent
-                    );
-                } else {
-                    alarmManager.setExact(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            pendingIntent
-                    );
-                }
+                alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        pendingIntent
+                );
                 Toast.makeText(this, "One-time alarm set for: " + calendar.getTime(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -89,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void cancelAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager == null) {
+            Toast.makeText(this, "Failed to set/cancel alarm.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(this, AlarmReceiver.class);
 
         // Use FLAG_IMMUTABLE for the PendingIntent
@@ -99,10 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 PendingIntent.FLAG_IMMUTABLE
         );
 
-        if (alarmManager != null) {
-            alarmManager.cancel(pendingIntent);
-            Toast.makeText(this, "Alarm canceled", Toast.LENGTH_SHORT).show();
-        }
+        alarmManager.cancel(pendingIntent);
+        Toast.makeText(this, "Alarm canceled", Toast.LENGTH_SHORT).show();
     }
 
 }

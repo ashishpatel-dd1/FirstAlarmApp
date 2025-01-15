@@ -17,9 +17,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (mediaPlayer != null) {
             mediaPlayer.start();
             // Release the MediaPlayer after the sound finishes
-            mediaPlayer.setOnCompletionListener(mp -> {
-                mp.release();
-            });
+            mediaPlayer.setOnCompletionListener(MediaPlayer::release);
         } else {
             Toast.makeText(context, "Unable to play alarm sound", Toast.LENGTH_SHORT).show();
         }

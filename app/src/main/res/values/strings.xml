@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SimpleAlarmApp</string>
+    <string name="recurring_alarm_label">Set as recurring alarm (daily)</string>
+    <string name="set_alarm_button_text">Set Alarm</string>
+    <string name="cancel_alarm_button_text">Cancel Alarm</string>
 </resources>
