@@ -12,18 +12,17 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
-import java.util.Calendar;
-
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static final String CHANNEL_ID = "ALARM_CHANNEL";
     private static final int NOTIFICATION_ID = 1;
-    private MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;  // Make mediaPlayer static for external access
 
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean isSnoozeEnabled = intent.getBooleanExtra("snoozeEnabled", true);
         int snoozeDuration = intent.getIntExtra("snoozeDuration", 5);
+        long alarmTimeMillis = intent.getLongExtra("alarmTimeMillis", 0);
 
         // Play custom alarm sound
         mediaPlayer = MediaPlayer.create(context, android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI);
@@ -31,6 +30,44 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Create a notification
         createNotification(context, isSnoozeEnabled, snoozeDuration);
+        // Start checking the system time to stop the alarm when it's past the alarm time
+        //checkTimeAndStopAlarm(context, alarmTimeMillis);
+    }
+
+
+    /**
+     * Check the system time and stop the alarm when the alarm time has passed.
+     * @param context The context from which the receiver was called.
+     * @param alarmTimeMillis The time in milliseconds when the alarm should stop.
+     */
+    private void checkTimeAndStopAlarm(Context context, long alarmTimeMillis) {
+        // Run a background thread to check the time periodically
+        new Thread(() -> {
+            while (System.currentTimeMillis() < alarmTimeMillis) {
+                try {
+                    Thread.sleep(1000);  // Check every second
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Once the time passes, stop the alarm sound
+            stopAlarm();
+
+            // Optionally, you can notify the user that the alarm has stopped
+            // Send a notification or update UI if required
+
+        }).start();
+    }
+
+
+    // Stops the alarm sound when snooze is triggered or canceled
+    public void stopAlarm() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;  // Clear mediaPlayer
+        }
     }
 
     private void createNotification(Context context, boolean isSnoozeEnabled, int snoozeDuration) {
@@ -74,16 +111,5 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Notify the user
         notificationManager.notify(NOTIFICATION_ID, builder.build());
-    }
-
-    /**
-     * Stops the alarm sound when snooze is triggered.
-     */
-    public void stopAlarm() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
     }
 }

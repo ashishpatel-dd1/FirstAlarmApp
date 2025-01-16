@@ -122,6 +122,14 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/cancel_alarm_button_description" />
 
+        <Button
+            android:id="@+id/stopAlarmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stop_alarm"
+            android:layout_gravity="center" />
+
+
         <!-- Feedback TextView -->
         <TextView
             android:id="@+id/feedbackText"
