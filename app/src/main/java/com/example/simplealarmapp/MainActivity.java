@@ -90,12 +90,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Inside your MainActivity or relevant class
-        snoozeSlider.addOnChangeListener(new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                snoozeDuration = (int) value; // Get the current value as an integer
-                Toast.makeText(MainActivity.this, "Snooze Duration: " + snoozeDuration + " min", Toast.LENGTH_SHORT).show();
-            }
+        snoozeSlider.addOnChangeListener((slider, value, fromUser) -> {
+            snoozeDuration = (int) value; // Get the current value as an integer
+            Toast.makeText(MainActivity.this, "Snooze Duration: " + snoozeDuration + " min", Toast.LENGTH_SHORT).show();
         });
 
 
