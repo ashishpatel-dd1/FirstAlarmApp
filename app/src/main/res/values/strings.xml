@@ -22,6 +22,9 @@
     <string name="alarm_switch_description">Toggle to enable or disable the alarm</string>
     <string name="enable_alarm">Enable Alarm</string>
     <string name="disable_alarm">Disable Alarm</string>
+    <string name="stop_alarm">Stop Alarm</string>
+    <string name="alarm_stopped">Alarm Stopped</string>
+
 
     <string name="alarm_canceled">Alarm Cancelled</string>
 

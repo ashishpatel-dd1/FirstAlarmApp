@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button setAlarmButton = findViewById(R.id.setAlarmButton);
         Button cancelAlarmButton = findViewById(R.id.cancelAlarmButton);
+        Button stopAlarmButton = findViewById(R.id.stopAlarmButton);  // Added stop alarm button
 
         // Set initial values
         snoozeSeekBar.setProgress(snoozeDuration);
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
             isSnoozeEnabled = isChecked;
             String status = isSnoozeEnabled ? "enabled" : "disabled";
             Toast.makeText(MainActivity.this, "Snooze is " + status, Toast.LENGTH_SHORT).show();
+            if (isSnoozeEnabled) {
+                stopAlarm();  // Stop the alarm sound when snooze is enabled
+            }
         });
 
         // Alarm Switch Listener
@@ -106,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
             cancelAlarm();
             feedbackText.setText(R.string.alarm_canceled);
         });
+
+        // Stop Alarm Button Listener (Stops the ringing alarm and disables snooze)
+        stopAlarmButton.setOnClickListener(v -> {
+            stopAlarm();  // Stop the alarm sound
+            disableSnooze();  // Disable snooze functionality
+            feedbackText.setText(R.string.alarm_stopped);  // Update feedback text
+        });
     }
 
     @SuppressLint("ScheduleExactAlarm")
@@ -114,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlarmReceiver.class);
         intent.putExtra("snoozeEnabled", isSnoozeEnabled); // Pass snooze state
         intent.putExtra("snoozeDuration", snoozeDuration); // Pass snooze duration to the receiver
+        intent.putExtra("alarmTimeMillis", calendar.getTimeInMillis()); // Pass alarm time
 
         int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                 ? PendingIntent.FLAG_IMMUTABLE
@@ -154,5 +166,26 @@ public class MainActivity extends AppCompatActivity {
             alarmManager.cancel(pendingIntent);
             Toast.makeText(this, "Alarm canceled.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // Method to stop the alarm sound
+    private void stopAlarm() {
+        if (AlarmReceiver.mediaPlayer != null && AlarmReceiver.mediaPlayer.isPlaying()) {
+            AlarmReceiver mediaPlayer = new AlarmReceiver();
+            mediaPlayer.stopAlarm();  // Stop the alarm sound
+        }
+    }
+
+    // Method to disable snooze functionality and reset SeekBar
+    private void disableSnooze() {
+        snoozeSwitch.setChecked(false);  // Turn off the snooze switch
+        isSnoozeEnabled = false;  // Update the snooze state
+
+        // Optionally, reset the SeekBar to its default position
+        snoozeSeekBar.setProgress(5);  // Reset to default (5 minutes)
+        snoozeDuration = 5;  // Reset the snooze duration to 5 minutes
+
+        // Notify the user that snooze has been disabled
+        Toast.makeText(MainActivity.this, "Snooze has been disabled.", Toast.LENGTH_SHORT).show();
     }
 }
