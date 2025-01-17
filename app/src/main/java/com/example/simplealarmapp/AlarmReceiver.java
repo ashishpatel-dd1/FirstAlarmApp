@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 
@@ -17,16 +20,21 @@ public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "ALARM_CHANNEL";
     private static final int NOTIFICATION_ID = 1;
     public static MediaPlayer mediaPlayer;
+    private final Handler stopAlarmHandler = new Handler(Looper.getMainLooper());
+    private final Runnable stopAlarmRunnable = this::stopAlarm;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean isSnoozeEnabled = intent.getBooleanExtra("snoozeEnabled", true);
         int snoozeDuration = intent.getIntExtra("snoozeDuration", 5);
-        long alarmTimeMillis = intent.getLongExtra("alarmTimeMillis", 0);
+        //long alarmTimeMillis = intent.getLongExtra("alarmTimeMillis", 0);
 
         // Play custom alarm sound
-        mediaPlayer = MediaPlayer.create(context, android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI);
+        mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         mediaPlayer.start();
+
+        // Automatically stop alarm after 1 minute
+        stopAlarmHandler.postDelayed(stopAlarmRunnable, 60 * 1000);
 
         // Create a notification
         createNotification(context, isSnoozeEnabled, snoozeDuration);
@@ -81,6 +89,9 @@ public class AlarmReceiver extends BroadcastReceiver {
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
+
+            // Cancel the stop alarm task if called manually
+            stopAlarmHandler.removeCallbacks(stopAlarmRunnable);
         }
     }
 }

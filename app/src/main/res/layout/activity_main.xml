@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -16,7 +17,7 @@
             android:id="@+id/headerText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="@string/app_name"
@@ -103,37 +104,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recurringCheckBox" />
 
-<!--        &lt;!&ndash; Snooze SeekBar &ndash;&gt;-->
-<!--        <SeekBar-->
-<!--            android:id="@+id/snoozeSeekBar"-->
-<!--            android:layout_width="320dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            android:contentDescription="@string/snooze_seekbar_description"-->
-<!--            android:max="30"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/snoozeLabel" />-->
-
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/snoozeSlider"
-                    android:layout_width="320dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="8dp"
-                    android:value="5.0"
-                    android:valueFrom="1.0"
-                    android:valueTo="30.0"
-                    android:stepSize="1.0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/snoozeLabel" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/snoozeSlider"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:stepSize="1.0"
+            android:value="5.0"
+            android:valueFrom="1.0"
+            android:valueTo="30.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/snoozeLabel" />
 
         <!-- Snooze Switch -->
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/snoozeSwitch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="320dp"
+            android:layout_height="48dp"
             android:layout_marginTop="20dp"
             android:text="@string/snooze_toggle_label"
             android:textSize="16sp"

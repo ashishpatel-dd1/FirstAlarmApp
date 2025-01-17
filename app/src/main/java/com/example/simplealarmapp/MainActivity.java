@@ -72,22 +72,6 @@ public class MainActivity extends AppCompatActivity {
         feedbackText.setText(getString(R.string.no_alarms_set));
         alarmSwitch.setChecked(isAlarmEnabled);
 
-        // Snooze SeekBar Listener
-//        snoozeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                snoozeDuration = progress;
-//                Toast.makeText(MainActivity.this, "Snooze Duration: " + snoozeDuration + " min", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {}
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {}
-//        });
-
-
 
         // Inside your MainActivity or relevant class
         snoozeSlider.addOnChangeListener((slider, value, fromUser) -> {
@@ -150,10 +134,22 @@ public class MainActivity extends AppCompatActivity {
         int minute = selectedDateTime.get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) -> {
-            selectedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            selectedDateTime.set(Calendar.MINUTE, minute1);
-            selectedDateTime.set(Calendar.SECOND, 0);
-            timePicker.setText(String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1));
+            Calendar selectedTime = (Calendar) selectedDateTime.clone();
+            selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            selectedTime.set(Calendar.MINUTE, minute1);
+            selectedTime.set(Calendar.SECOND, 0);
+
+            Calendar currentDateTime = Calendar.getInstance();
+
+            // Ensure the selected time is not in the past if the selected date is today
+            if (selectedTime.before(currentDateTime)) {
+                Toast.makeText(this, "You cannot select a past time.", Toast.LENGTH_SHORT).show();
+            } else {
+                selectedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                selectedDateTime.set(Calendar.MINUTE, minute1);
+                selectedDateTime.set(Calendar.SECOND, 0);
+                timePicker.setText(String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1));
+            }
         }, hour, minute, true);
 
         timePickerDialog.show();
@@ -165,13 +161,23 @@ public class MainActivity extends AppCompatActivity {
         int day = selectedDateTime.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, month1, dayOfMonth) -> {
-            selectedDateTime.set(Calendar.YEAR, year1);
-            selectedDateTime.set(Calendar.MONTH, month1);
-            selectedDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            datePicker.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth));
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year1, month1, dayOfMonth);
 
+            // Ensure the selected date is not in the past
+            Calendar currentDate = Calendar.getInstance();
+            if (selectedDate.before(currentDate)) {
+                Toast.makeText(this, "You cannot select a past date.", Toast.LENGTH_SHORT).show();
+            } else {
+                selectedDateTime.set(Calendar.YEAR, year1);
+                selectedDateTime.set(Calendar.MONTH, month1);
+                selectedDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                datePicker.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth));
+            }
         }, year, month, day);
 
+        // Set the minimum date to today
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 

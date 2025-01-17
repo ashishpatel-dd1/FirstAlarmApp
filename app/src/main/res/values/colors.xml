@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Light Theme Colors -->
+    <color name="teal_200">#80CBC4</color>
+    <color name="teal_500">#26A69A</color>
+    <color name="teal_700">#00796B</color>
+    <color name="purple_200">#CE93D8</color>
+    <color name="purple_500">#AB47BC</color>
+    <color name="purple_700">#7B1FA2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_300">#E0E0E0</color> <!-- Light gray for surfaces -->
+
+    <!-- Switch Colors for Light Mode -->
+    <color name="switch_thumb_enabled_light">#26A69A</color> <!-- Teal -->
+    <color name="switch_thumb_disabled_light">#BDBDBD</color> <!-- Gray -->
+    <color name="switch_track_enabled_light">#80CBC4</color> <!-- Lighter Teal -->
+    <color name="switch_track_disabled_light">#E0E0E0</color> <!-- Light Gray -->
+
+    <!-- Dark Theme Colors -->
+    <color name="dark_teal_200">#004D40</color>
+    <color name="dark_teal_500">#00695C</color>
+    <color name="dark_teal_700">#00796B</color>
+    <color name="dark_purple_200">#512DA8</color>
+    <color name="dark_purple_500">#673AB7</color>
+    <color name="dark_purple_700">#4527A0</color>
+    <color name="dark_white">#E0E0E0</color> <!-- Slightly dimmed white for dark mode -->
+    <color name="dark_black">#121212</color> <!-- Dark background -->
+    <color name="dark_surface">#1E1E1E</color> <!-- Surface color for dark mode -->
+
+    <!-- Switch Colors for Dark Mode -->
+    <color name="switch_thumb_enabled_dark">#80CBC4</color> <!-- Light Teal -->
+    <color name="switch_thumb_disabled_dark">#424242</color> <!-- Dark Gray -->
+    <color name="switch_track_enabled_dark">#004D40</color> <!-- Dark Teal -->
+    <color name="switch_track_disabled_dark">#303030</color> <!-- Very Dark Gray -->
+
+    <!-- Background Colors -->
+    <color name="colorBackground">#FFFFFF</color> <!-- Light theme background -->
+    <color name="colorBackgroundDark">#121212</color> <!-- Dark theme background -->
+
+    <!-- Error Colors -->
+    <color name="red_500">#F44336</color>
 </resources>
