@@ -8,24 +8,18 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+
 import android.os.Bundle;
-import android.widget.SeekBar;
-import android.widget.Switch;
+
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TimePicker;
-import android.widget.DatePicker;
-import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AlertDialog;
-import com.google.android.material.slider.Slider;
+
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.google.android.material.slider.Slider;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.slider.Slider;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.Calendar;
 import java.util.Locale;
