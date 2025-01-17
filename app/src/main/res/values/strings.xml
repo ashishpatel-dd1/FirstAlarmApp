@@ -12,7 +12,7 @@
 
     <string name="snooze_label">Snooze Duration (Minutes)</string>
     <string name="snooze_seekbar_description">Adjust the snooze duration for the alarm</string>
-    <string name="snooze_toggle_label">Enable/Disable Snooze</string>
+    <string name="snooze_toggle_label">Snooze</string>
     <string name="snooze_disabled">Snooze Disabled</string>
     <string name="snooze_enabled">Snooze Enabled</string>
     <string name="snooze_toggle_description">Toggle to enable or disable the snooze functionality</string>

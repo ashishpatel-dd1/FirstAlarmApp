@@ -1,144 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
         <!-- App Header -->
         <TextView
             android:id="@+id/headerText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:layout_marginBottom="24dp" />
+            android:text="@string/app_name"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/alarmSwitch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TimePicker Label -->
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Alarm Switch -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/alarmSwitch"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/time_picker_label"
+            android:text="@string/enable_alarm"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerText"
+            app:layout_constraintWidth_max="320dp" />
 
-        <!-- TimePicker -->
-        <TimePicker
-            android:id="@+id/timePicker"
-            android:layout_width="match_parent"
+        <!-- Time Picker -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/timePickerLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:timePickerMode="spinner"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/time_picker_description" />
+            android:layout_marginTop="16dp"
+            android:hint="@string/time_picker_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/alarmSwitch"
+            app:layout_constraintWidth_max="320dp">
 
-        <!-- DatePicker Label -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/date_picker_label"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/timePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- DatePicker -->
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="match_parent"
+        <!-- Date Picker -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/datePickerLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/date_picker_description" />
+            android:layout_marginTop="16dp"
+            android:hint="@string/date_picker_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timePickerLayout"
+            app:layout_constraintWidth_max="320dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Recurring Checkbox -->
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/recurringCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/recurring_alarm_label"
-            android:contentDescription="@string/recurring_checkbox_description" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/datePickerLayout" />
 
-        <!-- Snooze Label -->
+        <!-- Snooze Duration Slider -->
+
         <TextView
             android:id="@+id/snoozeLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
             android:text="@string/snooze_label"
-            android:layout_marginBottom="8dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recurringCheckBox" />
 
-        <!-- Snooze SeekBar -->
-        <SeekBar
-            android:id="@+id/snoozeSeekBar"
-            android:layout_width="match_parent"
+        <com.google.android.material.slider.Slider
+            android:id="@+id/snoozeSlider"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:max="30"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/snooze_seekbar_description" />
+            android:layout_marginTop="8dp"
+            android:stepSize="1.0"
+            android:value="5.0"
+            android:valueFrom="1.0"
+            android:valueTo="30.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/snoozeLabel" />
 
-        <!-- Snooze Toggle Switch -->
-        <Switch
+        <!-- Snooze Switch -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/snoozeSwitch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="320dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
             android:text="@string/snooze_toggle_label"
-            android:textOff="@string/snooze_disabled"
-            android:textOn="@string/snooze_enabled"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/snooze_toggle_description" />
-
-
-        <!-- Enable/Disable Alarm Switch -->
-        <Switch
-            android:id="@+id/alarmSwitch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textOff="@string/disable_alarm"
-            android:textOn="@string/enable_alarm"
-            android:text="@string/enable_disable_alarm"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/alarm_switch_description" />
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/snoozeSlider"
+            app:layout_constraintWidth_max="320dp" />
 
         <!-- Set Alarm Button -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/setAlarmButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/set_alarm_button_text"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/set_alarm_button_description" />
-
-        <!-- Cancel Alarm Button -->
-        <Button
-            android:id="@+id/cancelAlarmButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel_alarm_button_text"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/cancel_alarm_button_description" />
-
-        <Button
-            android:id="@+id/stopAlarmButton"
+            style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/set_alarm_button_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/snoozeSwitch" />
+
+        <!-- Cancel Alarm Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelAlarmButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/cancel_alarm_button_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setAlarmButton" />
+
+        <!-- Stop Alarm Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/stopAlarmButton"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/stop_alarm"
-            android:layout_gravity="center" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cancelAlarmButton" />
 
-
-        <!-- Feedback TextView -->
+        <!-- Feedback Text -->
         <TextView
             android:id="@+id/feedbackText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/no_alarms_set"
-            android:textSize="16sp"
-            android:gravity="center"
             android:layout_marginTop="16dp"
-            android:textColor="@android:color/holo_red_dark" />
-    </LinearLayout>
+            android:gravity="center"
+            android:text="@string/no_alarms_set"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stopAlarmButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
